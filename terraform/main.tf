@@ -12,3 +12,12 @@ terraform {
 provider "aws" {
   region = "ap-southeast-1"
 }
+
+resource "aws_instance" "app_server" {
+  ami           = "ami-0f98860b8bc09bd5c"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "ExampleAppServerInstance"
+  }
+}
