@@ -10,17 +10,8 @@ terraform {
 # ---------------------
 #    ECR
 # ---------------------
-resource "aws_ecr_repository" "thales-repo" {
-  name                 = "thales_staging"
-  image_tag_mutability = "MUTABLE"
-
-  image_scanning_configuration {
-    scan_on_push = true
-  }
-}
-
-resource "aws_ecr_repository" "thalesdashboard-staging" {
-  name                 = "thales_dashboard_staging"
+resource "aws_ecr_repository" "thales-dashboard" {
+  name                 = "thales_dashboard"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
@@ -59,16 +50,6 @@ data "aws_ami" "amzn-linux-ami" {
   filter {
     name   = "name"
     values = ["al2023-ami-2023.*-x86_64"]
-  }
-}
-
-resource "aws_instance" "thales-be" {
-  ami           = data.aws_ami.amzn-linux-ami.id
-  instance_type = "t2.micro"
-  subnet_id     = aws_subnet.thales-subnet.id
-
-  tags = {
-    Name = "Thales BE (Staging)"
   }
 }
 
